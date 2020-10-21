@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import styled, { keyframes } from "styled-components"
 import MenuList from "../constants/MenuList"
 import Board from "../boards/index"
+import SEO from "../components/seo"
 
 const BackgroundBox = styled.div`
   display: flex;
@@ -30,19 +31,7 @@ const LayoutBox = styled.div`
   }
 `
 
-const Footer = styled.footer`
-  align-self: flex-start;
-  margin-top: 4vh;
-  font-family: monospace;
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  @media (max-width: 800px) {
-    position: absolute;
-    right: 0;
-  }
-`
-
-const menuRotate = keyframes`
+const HomeRotate = keyframes`
   from {
     opacity: 0;
     transform: translateX(-0.5rem);
@@ -54,20 +43,36 @@ const menuRotate = keyframes`
   }
 `
 
+const Footer = styled.footer`
+  align-self: flex-start;
+  margin-top: 4vh;
+  font-family: monospace;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  animation: ${HomeRotate} 0.5s linear;
+  @media (max-width: 800px) {
+    position: absolute;
+    right: 0;
+  }
+`
+
 const MenuBox = styled.div`
   display: flex;
   flex-direction: column;
   align-self: flex-start;
   text-align: right;
   margin-top: 5vh;
-  animation: ${menuRotate} 0.5s linear;
+  animation: ${HomeRotate} 0.5s linear;
+  @media only screen and (max-width: 500px) {
+        display: none;
+  }
 `
 
 const MenuItem = styled.span`
   position: relative;
   display: inline-block;
   left: 1rem;
-  color: ${props => (props.light ? "red" : "#3c4043")};
+  color: ${props => (props.light ? "#ff4b5c" : "#3c4043")};
   font-family: Covered By Your Grace;
   cursor: pointer;
   margin: 7px 0;
@@ -79,6 +84,7 @@ const Home = () => {
   const [page, setPage] = useState("Posts")
   return (
     <BackgroundBox>
+      <SEO title="Jazenx | 偷得浮生半日闲" />
       <MenuBox>
         {Object.keys(MenuList).map(item => (
           <MenuItem
@@ -97,7 +103,7 @@ const Home = () => {
         <Board page={page} />
       </LayoutBox>
       <Footer>
-        © {new Date().getFullYear()}
+        ©{new Date().getFullYear()}
         {` `}Built with
         {` `}
         <a href="https://github.com/Jazenx">Jazenx</a>
